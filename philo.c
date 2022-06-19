@@ -28,5 +28,10 @@ int main(int argc, char **argv)
 {
 	t_params params;
 
+	if (argc != 5 && argc != 6)
+	{
+		printf("Wrong number of arguments\n");
+		return (1);
+	}
 	get_params(argc, argv, &params);
 }
