@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 16:31:20 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/19 17:36:38 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/19 18:08:06 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ typedef struct s_philo
 {
 	int num;
 	int state; //0 = eat, 1 = think, 2 = sleep
-	pthread_mutex_t left_fork;
-	pthread_mutex_t right_fork;
+	pthread_mutex_t *left_fork;
+	pthread_mutex_t *right_fork;
 } t_philo;
 
 typedef struct s_params

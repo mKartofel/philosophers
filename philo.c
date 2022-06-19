@@ -24,9 +24,53 @@ void get_params(int argc, char **argv, t_params *params)
 		params->nb_must_eat = 0;
 }
 
+void free_philos(t_params *params, t_philo *philos)
+{
+	int i;
+
+	i = 0;
+	while (i < params->nb_philo)
+	{
+		pthread_mutex_destroy(philos[i].right_fork);
+		i++;
+	}
+	free(philos);
+}
+
+t_philo *create_philos(t_params *params)
+{
+	t_philo *philos;
+	int i;
+	int j;
+
+	philos = malloc(sizeof(t_philo) * params->nb_philo);
+	if (!philos)
+		return (NULL);
+	i = 0;
+	while (i < params->nb_philo)
+	{
+		philos[i].num = i + 1;
+		philos[i].state = 1;
+		if (pthread_mutex_init(philos[i].right_fork, NULL) != 0)
+		{
+			j = 0;
+			while (j < i)
+			{
+				pthread_mutex_destroy(philos[i].right_fork);
+				j++;
+			}
+			free(philos);
+			return (NULL);
+		}
+		i++;
+	}
+	return (philos);
+}
+
 int main(int argc, char **argv)
 {
 	t_params params;
+	t_philo *philos;
 
 	if (argc != 5 && argc != 6)
 	{
@@ -34,4 +78,8 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	get_params(argc, argv, &params);
+	philos = create_philos(&params);
+	if (!philos)
+		return (1);
+	free_philos(&params, philos);
 }
