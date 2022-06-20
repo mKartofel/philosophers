@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 16:31:20 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/19 18:08:06 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/20 10:28:58 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct s_philo
-{
-	int num;
-	int state; //0 = eat, 1 = think, 2 = sleep
-	pthread_mutex_t *left_fork;
-	pthread_mutex_t *right_fork;
-} t_philo;
-
 typedef struct s_params
 {
 	int nb_philo;
@@ -34,6 +26,18 @@ typedef struct s_params
 	int time_to_sleep;
 	int nb_must_eat;
 } t_params;
+
+typedef struct s_philo
+{
+	int num;
+	int state; //0 = eat, 1 = think, 2 = sleep
+	pthread_mutex_t left_fork;
+	pthread_mutex_t right_fork;
+	pthread_t	thread;
+	t_params *params;
+} t_philo;
+
+
 
 int	ft_atoi(const char *nptr);
 

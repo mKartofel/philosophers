@@ -31,10 +31,22 @@ void free_philos(t_params *params, t_philo *philos)
 	i = 0;
 	while (i < params->nb_philo)
 	{
-		pthread_mutex_destroy(philos[i].right_fork);
+		pthread_mutex_destroy(&(philos[i].right_fork));
 		i++;
 	}
 	free(philos);
+}
+
+void wait_for_threads(t_params *params, t_philo *philos)
+{
+	int i;
+
+	i = 0;
+	while (i < params->nb_philo)
+	{
+		pthread_join(philos[i].thread, NULL);
+		i++;
+	}
 }
 
 t_philo *create_philos(t_params *params)
@@ -51,20 +63,52 @@ t_philo *create_philos(t_params *params)
 	{
 		philos[i].num = i + 1;
 		philos[i].state = 1;
-		if (pthread_mutex_init(philos[i].right_fork, NULL) != 0)
+		philos[i].params = params;
+		if (pthread_mutex_init(&(philos[i].right_fork), NULL) != 0)
 		{
 			j = 0;
 			while (j < i)
 			{
-				pthread_mutex_destroy(philos[i].right_fork);
+				pthread_mutex_destroy(&(philos[i].right_fork));
 				j++;
 			}
 			free(philos);
 			return (NULL);
 		}
+		if (i > 0)
+		{
+			philos[i].left_fork = philos[i - 1].right_fork;
+			if (i == params->nb_philo - 1)
+			{
+				philos[0].left_fork = philos[i].right_fork;
+			}
+		}
 		i++;
 	}
 	return (philos);
+}
+
+void *routine(void *philos_arg)
+{
+	t_philo *philos;
+
+	philos = (t_philo *)philos_arg;
+	printf("HIHI je suis num %d\n", philos->num);
+	return (NULL);
+}
+
+int start_threads(t_params *params, t_philo *philos)
+{
+	int i;
+
+	i = 0;
+	while (i < params->nb_philo)
+	{
+		if (pthread_create(&philos[i].thread, NULL, &routine, &(philos[i])) != 0)
+			return (1); //handle error
+		i++;
+	}
+	return (0);
 }
 
 int main(int argc, char **argv)
@@ -81,5 +125,7 @@ int main(int argc, char **argv)
 	philos = create_philos(&params);
 	if (!philos)
 		return (1);
+	start_threads(&params, philos);
+	wait_for_threads(&params, philos);
 	free_philos(&params, philos);
 }
