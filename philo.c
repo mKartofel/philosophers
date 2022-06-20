@@ -88,22 +88,38 @@ t_philo *create_philos(t_params *params)
 	return (philos);
 }
 
-void *routine(void *philos_arg)
+void display_state(t_philo *philo, char *msg)
 {
-	t_philo *philos;
+	struct timeval time;
 
-	philos = (t_philo *)philos_arg;
-	printf("HIHI je suis num %d\n", philos->num);
+	(void)msg;
+	gettimeofday(&time, NULL);
+	printf("%ld\n", ((time.tv_sec * 1000) + (time.tv_usec / 1000)) - philo->start_time);
+}
+
+void *routine(void *philo_arg)
+{
+	t_philo *philo;
+
+	philo = (t_philo *)philo_arg;
+	printf("HIHI je suis num %d\n", philo->num);
+	usleep(1000000);
+	display_state(philo, "test");
 	return (NULL);
 }
 
 int start_threads(t_params *params, t_philo *philos)
 {
 	int i;
+	struct timeval time;
+	long long start_time;
 
+	gettimeofday(&time, NULL);
+	start_time = (time.tv_sec * 1000) + (time.tv_usec / 1000);
 	i = 0;
 	while (i < params->nb_philo)
 	{
+		philos[i].start_time = start_time;
 		if (pthread_create(&philos[i].thread, NULL, &routine, &(philos[i])) != 0)
 			return (1); //handle error
 		i++;
