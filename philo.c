@@ -31,7 +31,10 @@ void free_philos(t_params *params, t_philo *philos)
 	i = 0;
 	while (i < params->nb_philo)
 	{
-		pthread_mutex_destroy(&(philos[i].right_fork));
+		pthread_mutex_destroy(philos[i].right_fork);
+		free(philos[i].right_fork);
+		pthread_mutex_destroy(philos[i].check_death);
+		free(philos[i].check_death);
 		i++;
 	}
 	free(philos);
@@ -54,23 +57,61 @@ t_philo *create_philos(t_params *params)
 	t_philo *philos;
 	int i;
 	int j;
+	int ret1;
+	int ret2;
+	long start_time;
 
 	philos = malloc(sizeof(t_philo) * params->nb_philo);
 	if (!philos)
 		return (NULL);
+	if (pthread_mutex_init(&(params->display), NULL) != 0)
+	{
+		free(philos);
+		return (NULL);
+	}
+	start_time = get_time();
 	i = 0;
+	ret1 = 0;
+	ret2 = 0;
 	while (i < params->nb_philo)
 	{
 		philos[i].num = i + 1;
 		philos[i].state = 1;
 		philos[i].params = params;
-		if (pthread_mutex_init(&(philos[i].right_fork), NULL) != 0)
+		philos[i].display = &(params->display);
+		philos[i].start_time = start_time;
+		philos[i].time_last_meal = start_time;
+		philos[i].nb_meals = 0;
+		philos[i].right_fork = malloc(sizeof(pthread_mutex_t));
+		if (!philos[i].right_fork)
+		{
+			free(philos);
+			return (NULL);
+		}
+		philos[i].check_death = malloc(sizeof(pthread_mutex_t));
+		if (!philos[i].check_death)
+		{
+			free(philos);
+			free(philos[i].right_fork);
+			return (NULL);
+		}
+		ret1 = pthread_mutex_init(philos[i].right_fork, NULL);
+		ret2 = pthread_mutex_init(philos[i].check_death, NULL);
+		if ( ret1 != 0 ||  ret2 != 0)
 		{
 			j = 0;
 			while (j < i)
 			{
-				pthread_mutex_destroy(&(philos[i].right_fork));
+				pthread_mutex_destroy(philos[j].right_fork);
+				free(philos[j].right_fork);
+				pthread_mutex_destroy(philos[j].check_death);
+				free(philos[j].check_death);
 				j++;
+			}
+			if (ret2 != 0)
+			{
+				pthread_mutex_destroy(philos[j].right_fork);
+				free(philos[j].right_fork);
 			}
 			free(philos);
 			return (NULL);
@@ -92,8 +133,10 @@ void display_state(t_philo *philo, char *msg)
 {
 	struct timeval time;
 
+	pthread_mutex_lock(philo->display);
 	gettimeofday(&time, NULL);
 	printf("%ld %d %s\n", ((time.tv_sec * 1000) + (time.tv_usec / 1000)) - philo->start_time, philo->num, msg);
+	pthread_mutex_unlock(philo->display);
 }
 
 void *routine(void *philo_arg)
@@ -102,23 +145,17 @@ void *routine(void *philo_arg)
 
 	philo = (t_philo *)philo_arg;
 	printf("HIHI je suis num %d\n", philo->num);
-	usleep(1000000);
-	display_state(philo, "is thinking");
+	eat(philo);
 	return (NULL);
 }
 
 int start_threads(t_params *params, t_philo *philos)
 {
 	int i;
-	struct timeval time;
-	long long start_time;
 
-	gettimeofday(&time, NULL);
-	start_time = (time.tv_sec * 1000) + (time.tv_usec / 1000);
 	i = 0;
 	while (i < params->nb_philo)
 	{
-		philos[i].start_time = start_time;
 		if (pthread_create(&philos[i].thread, NULL, &routine, &(philos[i])) != 0)
 			return (1); //handle error
 		i++;

@@ -6,13 +6,14 @@
 #    By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/19 17:31:34 by vfiszbin          #+#    #+#              #
-#    Updated: 2022/06/20 10:14:52 by vfiszbin         ###   ########.fr        #
+#    Updated: 2022/06/20 14:56:36 by vfiszbin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 SRCS =	philo.c\
+		states.c\
 		utils.c\
 
 OBJS = ${SRCS:.c=.o}
