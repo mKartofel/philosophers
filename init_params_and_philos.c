@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:04:05 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/20 16:27:17 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/20 16:56:35 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void get_params(int argc, char **argv, t_params *params)
 	if (argc == 6)
 		params->nb_must_eat = ft_atoi(argv[5]);
 	else 
-		params->nb_must_eat = 0;
+		params->nb_must_eat = -1;
 }
 
 t_philo *create_philos(t_params *params)
@@ -61,6 +61,7 @@ t_philo *create_philos(t_params *params)
 			free(philos);
 			return (NULL);
 		}
+		philos[i].left_fork = NULL;
 		philos[i].check_death = malloc(sizeof(pthread_mutex_t));
 		if (!philos[i].check_death)
 		{

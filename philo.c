@@ -53,10 +53,10 @@ void check_end(t_params *params, t_philo *philos)
 		must_eat_satisfied = 1;
 		while (i < params->nb_philo)
 		{
-			if (philos[i].nb_meals < params->nb_must_eat)
+			if (philos[i].nb_meals < params->nb_must_eat || params->nb_must_eat == -1)
 				must_eat_satisfied = 0;
 
-			if (philos[i].time_last_meal - get_time() > params->time_to_die)
+			if (get_time() - philos[i].time_last_meal > params->time_to_die)
 			{
 				params->end = 1;
 				display_state(&philos[i], "died");
@@ -64,7 +64,7 @@ void check_end(t_params *params, t_philo *philos)
 			}
 			i++;
 		}
-		if (params->end != 0 && must_eat_satisfied == 1)
+		if (params->end == 0 && must_eat_satisfied == 1)
 		{
 			params->end = 1;
 			pthread_mutex_lock(&params->display);
@@ -95,7 +95,11 @@ void *routine(void *philo_arg)
 	while (philo->params->end == 0)
 	{
 		eat_philo(philo);
+		if (philo->params->end != 0)
+			break;
 		sleep_philo(philo);
+		if (philo->params->end != 0)
+			break;
 		think_philo(philo);
 	}
 	return (NULL);
