@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 16:31:20 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/20 15:45:50 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/20 16:04:51 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 typedef struct s_params
 {
+	int end;
 	int nb_philo;
 	int time_to_die;
 	int time_to_eat;
@@ -50,5 +51,7 @@ int	ft_atoi(const char *nptr);
 void display_state(t_philo *philo, char *msg);
 long get_time(void);
 void eat(t_philo *philo);
+void get_params(int argc, char **argv, t_params *params);
+t_philo *create_philos(t_params *params);
 
 #endif
