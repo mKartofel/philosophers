@@ -92,9 +92,8 @@ void display_state(t_philo *philo, char *msg)
 {
 	struct timeval time;
 
-	(void)msg;
 	gettimeofday(&time, NULL);
-	printf("%ld\n", ((time.tv_sec * 1000) + (time.tv_usec / 1000)) - philo->start_time);
+	printf("%ld %d %s\n", ((time.tv_sec * 1000) + (time.tv_usec / 1000)) - philo->start_time, philo->num, msg);
 }
 
 void *routine(void *philo_arg)
@@ -104,7 +103,7 @@ void *routine(void *philo_arg)
 	philo = (t_philo *)philo_arg;
 	printf("HIHI je suis num %d\n", philo->num);
 	usleep(1000000);
-	display_state(philo, "test");
+	display_state(philo, "is thinking");
 	return (NULL);
 }
 
