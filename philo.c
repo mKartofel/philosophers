@@ -92,8 +92,12 @@ void *routine(void *philo_arg)
 	t_philo *philo;
 
 	philo = (t_philo *)philo_arg;
-	printf("HIHI je suis num %d\n", philo->num);
-	eat(philo);
+	while (philo->params->end == 0)
+	{
+		eat_philo(philo);
+		sleep_philo(philo);
+		think_philo(philo);
+	}
 	return (NULL);
 }
 

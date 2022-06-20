@@ -6,13 +6,13 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 14:56:10 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/20 15:58:34 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/20 16:36:58 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void eat(t_philo *philo)
+void eat_philo(t_philo *philo)
 {
 	pthread_mutex_lock(philo->right_fork);
 	display_state(philo, "has taken a fork");
@@ -21,8 +21,20 @@ void eat(t_philo *philo)
 	pthread_mutex_lock(philo->check_death);
 	display_state(philo, "is eating");
 	philo->time_last_meal = get_time();
-	philo->nb_meals++;
 	pthread_mutex_unlock(philo->check_death);
+	philo->nb_meals++;
+	usleep(philo->params->time_to_eat * 1000);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
+}
+
+void sleep_philo(t_philo *philo)
+{
+	display_state(philo, "is sleeping");
+	usleep(philo->params->time_to_sleep * 1000);
+}
+
+void think_philo(t_philo *philo)
+{
+	display_state(philo, "is thinking");
 }
