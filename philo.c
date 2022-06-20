@@ -68,8 +68,14 @@ void check_end(t_params *params, t_philo *philos)
 		{
 			params->end = 1;
 			pthread_mutex_lock(&params->display);
-			printf("Every philosopher have eaten a sufficient number of meals !\n");
+			printf("Every philosopher have eaten at least %d meals !\n", params->nb_must_eat);
 			pthread_mutex_unlock(&params->display);
+			// i = 0;
+			// while (i < params->nb_philo)
+			// {
+			// 	printf("%d : %d\n", i, philos[i].nb_meals);
+			// 	i++;
+			// }
 			break;
 		}
 		usleep(50);
@@ -129,7 +135,8 @@ int main(int argc, char **argv)
 		printf("Wrong number of arguments\n");
 		return (1);
 	}
-	get_params(argc, argv, &params);
+	if (get_params(argc, argv, &params) == 1)
+		return (1);
 	philos = create_philos(&params);
 	if (!philos)
 		return (1);

@@ -6,23 +6,37 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:04:05 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/20 16:56:35 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/20 19:15:23 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void get_params(int argc, char **argv, t_params *params)
+int get_params(int argc, char **argv, t_params *params)
 {
 	params->end = 0;
 	params->nb_philo = ft_atoi(argv[1]);
 	params->time_to_die = ft_atoi(argv[2]);
 	params->time_to_eat = ft_atoi(argv[3]);
 	params->time_to_sleep = ft_atoi(argv[4]);
+	if (params->nb_philo < 1 || params->time_to_die < 0 || params->time_to_eat < 0
+		|| params->time_to_sleep < 0)
+		{
+			printf("Incorrect arguments\n");
+			return (1);
+		}
 	if (argc == 6)
+	{
 		params->nb_must_eat = ft_atoi(argv[5]);
+		if (params->nb_must_eat < 0)
+		{
+			printf("Incorrect arguments\n");
+			return (1);
+		}
+	}
 	else 
 		params->nb_must_eat = -1;
+	return (0);
 }
 
 t_philo *create_philos(t_params *params)
