@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 10:06:54 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/21 13:12:16 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:12:57 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,6 @@ void	check_end(t_params *params, t_philo *philos)
 		check_must_eat(params, must_eat_satisfied);
 		if (params->end == 1)
 			break ;
-		usleep(50);
+		usleep(100);
 	}
 }

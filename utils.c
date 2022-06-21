@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 17:35:29 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/21 12:27:12 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/21 15:59:19 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,6 @@ void	micro_sleeps(t_philo *philo, long sleep_duration)
 	{
 		if (get_time() - sleep_start >= sleep_duration)
 			break ;
-		usleep(10);
+		usleep(100);
 	}
 }
