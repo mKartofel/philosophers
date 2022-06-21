@@ -6,7 +6,7 @@
 #    By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/19 17:31:34 by vfiszbin          #+#    #+#              #
-#    Updated: 2022/06/21 10:14:38 by vfiszbin         ###   ########.fr        #
+#    Updated: 2022/06/21 16:25:39 by vfiszbin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ clean:
 	${RM} *.o
 
 fclean: clean
-	${RM} so_long
+	${RM} philo
 
 re: fclean all
 
