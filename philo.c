@@ -26,6 +26,7 @@ void free_philos(t_params *params, t_philo *philos)
 		free(philos[i].check_death);
 		i++;
 	}
+	pthread_mutex_destroy(&params->display);
 	free(philos);
 }
 
@@ -56,12 +57,15 @@ void check_end(t_params *params, t_philo *philos)
 			if (philos[i].nb_meals < params->nb_must_eat || params->nb_must_eat == -1)
 				must_eat_satisfied = 0;
 
+			pthread_mutex_lock(philos[i].check_death);
 			if (get_time() - philos[i].time_last_meal > params->time_to_die)
 			{
 				params->end = 1;
 				display_state(&philos[i], "died");
-				break;
 			}
+			pthread_mutex_unlock(philos[i].check_death);
+			if (params->end == 1)
+				break ;
 			i++;
 		}
 		if (params->end == 0 && must_eat_satisfied == 1)
