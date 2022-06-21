@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 17:35:29 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/20 15:36:44 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/21 09:08:49 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ int	ft_atoi(const char *nptr)
 	return (num * sign);
 }
 
-long get_time(void)
+long	get_time(void)
 {
-	struct timeval time;
-	long current_time;
-	
+	struct timeval	time;
+	long			current_time;
+
 	gettimeofday(&time, NULL);
 	current_time = (time.tv_sec * 1000) + (time.tv_usec / 1000);
 	return (current_time);

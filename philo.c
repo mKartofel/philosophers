@@ -12,6 +12,32 @@
 
 #include "philo.h"
 
+int	get_params(int argc, char **argv, t_params *params)
+{
+	params->end = 0;
+	params->nb_philo = ft_atoi(argv[1]);
+	params->time_to_die = ft_atoi(argv[2]);
+	params->time_to_eat = ft_atoi(argv[3]);
+	params->time_to_sleep = ft_atoi(argv[4]);
+	if (params->nb_philo < 1 || params->time_to_die < 0
+		|| params->time_to_eat < 0 || params->time_to_sleep < 0)
+	{
+		printf("Incorrect arguments\n");
+		return (1);
+	}
+	if (argc == 6)
+	{
+		params->nb_must_eat = ft_atoi(argv[5]);
+		if (params->nb_must_eat < 0)
+		{
+			printf("Incorrect arguments\n");
+			return (1);
+		}
+	}
+	else
+		params->nb_must_eat = -1;
+	return (0);
+}
 
 void free_philos(t_params *params, t_philo *philos)
 {
