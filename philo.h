@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 16:31:20 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/21 09:08:11 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/21 10:14:14 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,7 @@ void	sleep_philo(t_philo *philo);
 void	think_philo(t_philo *philo);
 int		get_params(int argc, char **argv, t_params *params);
 t_philo	*create_philos(t_params *params);
+void	*routine(void *philo_arg);
+void	check_end(t_params *params, t_philo *philos);
 
 #endif

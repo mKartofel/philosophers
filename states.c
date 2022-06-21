@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 14:56:10 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/21 09:37:53 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/21 10:06:02 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,36 @@ void	sleep_philo(t_philo *philo)
 void	think_philo(t_philo *philo)
 {
 	display_state(philo, "is thinking");
+}
+
+void	display_state(t_philo *philo, char *msg)
+{
+	struct timeval	time;
+
+	pthread_mutex_lock(philo->display);
+	if (philo->params->end == 0)
+	{
+		gettimeofday(&time, NULL);
+		printf("%ld %d %s\n", ((time.tv_sec * 1000) + (time.tv_usec / 1000))
+			- philo->start_time, philo->num, msg);
+	}
+	pthread_mutex_unlock(philo->display);
+}
+
+void	*routine(void *philo_arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)philo_arg;
+	while (philo->params->end == 0)
+	{
+		eat_philo(philo);
+		if (philo->params->end != 0)
+			break ;
+		sleep_philo(philo);
+		if (philo->params->end != 0)
+			break ;
+		think_philo(philo);
+	}
+	return (NULL);
 }
