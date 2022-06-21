@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 09:58:18 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/21 10:33:16 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/21 12:33:41 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ int	start_threads(t_params *params, t_philo *philos)
 	i = 0;
 	while (i < params->nb_philo)
 	{
-		philos[i].time_last_meal = get_time();
 		if (pthread_create(&philos[i].thread, NULL,
 				&routine, &(philos[i])) != 0)
 			return (1);
+		philos[i].time_last_meal = get_time();
 		i++;
 	}
 	return (0);
