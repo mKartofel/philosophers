@@ -60,8 +60,8 @@ void check_end(t_params *params, t_philo *philos)
 			pthread_mutex_lock(philos[i].check_death);
 			if (get_time() - philos[i].time_last_meal > params->time_to_die)
 			{
-				params->end = 1;
 				display_state(&philos[i], "died");
+				params->end = 1;
 			}
 			pthread_mutex_unlock(philos[i].check_death);
 			if (params->end == 1)
@@ -92,8 +92,11 @@ void display_state(t_philo *philo, char *msg)
 	struct timeval time;
 
 	pthread_mutex_lock(philo->display);
-	gettimeofday(&time, NULL);
-	printf("%ld %d %s\n", ((time.tv_sec * 1000) + (time.tv_usec / 1000)) - philo->start_time, philo->num, msg);
+	if (philo->params->end == 0)
+	{
+		gettimeofday(&time, NULL);
+		printf("%ld %d %s\n", ((time.tv_sec * 1000) + (time.tv_usec / 1000)) - philo->start_time, philo->num, msg);
+	}
 	pthread_mutex_unlock(philo->display);
 }
 
