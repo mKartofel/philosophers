@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:04:05 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/21 09:58:05 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/21 10:32:14 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	init_philo(t_params *params, t_philo **philos, long start_time, int i)
 	(*philos)[i].params = params;
 	(*philos)[i].display = &(params->display);
 	(*philos)[i].start_time = start_time;
-	(*philos)[i].time_last_meal = start_time;
 	(*philos)[i].nb_meals = 0;
 	(*philos)[i].right_fork = malloc(sizeof(pthread_mutex_t));
 	if (!(*philos)[i].right_fork)

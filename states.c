@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 14:56:10 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/21 10:06:02 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/21 10:48:40 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	*routine(void *philo_arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)philo_arg;
+	if ((philo->num % 2) == 0)
+		usleep(30000);
 	while (philo->params->end == 0)
 	{
 		eat_philo(philo);
