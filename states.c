@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 14:56:10 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/21 12:47:07 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/21 13:21:18 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,10 @@ void	display_state(t_philo *philo, char *msg, int death)
 void	*routine(void *philo_arg)
 {
 	t_philo	*philo;
-	// long	offset_time;
 
 	philo = (t_philo *)philo_arg;
-	// if ((philo->num % 2) == 0)
-	// {
-	// 	offset_time = 30 - (get_time() - philo->start_time);
-	// 	printf("\noffset_time = %ld\n", offset_time);
-	// 	if (offset_time > 0)
-	// 		micro_sleeps(philo, offset_time);
-	// }
+	if ((philo->num % 2) == 0)
+		usleep(15000);
 	while (philo->params->end == 0)
 	{
 		eat_philo(philo);

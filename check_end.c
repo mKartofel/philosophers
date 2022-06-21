@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 10:06:54 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/21 12:36:04 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/21 13:12:16 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	check_death(t_params *params, t_philo *philos, int i)
 {
 	pthread_mutex_lock(philos[i].check_death);
-	// printf("current_time=%ld\ntime_last_meal=%ld\ntime_to_die=%d\n", get_time(), philos[i].time_last_meal, params->time_to_die);
 	if (get_time() - philos[i].time_last_meal > params->time_to_die)
 	{
 		params->end = 1;
