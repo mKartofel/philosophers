@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 16:31:20 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/21 10:14:14 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/21 11:31:51 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_philo
 }	t_philo;
 
 int		ft_atoi(const char *nptr);
-void	display_state(t_philo *philo, char *msg);
+void	display_state(t_philo *philo, char *msg, int death);
 long	get_time(void);
 void	eat_philo(t_philo *philo);
 void	sleep_philo(t_philo *philo);
@@ -54,5 +54,6 @@ int		get_params(int argc, char **argv, t_params *params);
 t_philo	*create_philos(t_params *params);
 void	*routine(void *philo_arg);
 void	check_end(t_params *params, t_philo *philos);
+void	micro_sleeps(t_philo *philo, long sleep_duration);
 
 #endif

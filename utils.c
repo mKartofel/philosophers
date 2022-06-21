@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 17:35:29 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/21 09:08:49 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/21 11:34:36 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ int	ft_atoi(const char *nptr)
 	return (num * sign);
 }
 
+/**
+ * @brief Get the current time in milliseconds
+ * 
+ * @return long current time (ms)
+ */
 long	get_time(void)
 {
 	struct timeval	time;
@@ -53,4 +58,23 @@ long	get_time(void)
 	gettimeofday(&time, NULL);
 	current_time = (time.tv_sec * 1000) + (time.tv_usec / 1000);
 	return (current_time);
+}
+
+/**
+ * @brief Put the calling thread to sleep for a certain amount of time
+ * through repeated micro sleeps. The sleep ends if the simulation is over
+ * @param philo 
+ * @param sleep_duration Duration of sleep in milliseconds
+ */
+void	micro_sleeps(t_philo *philo, long sleep_duration)
+{
+	long	sleep_start;
+
+	sleep_start = get_time();
+	while (philo->params->end == 0)
+	{
+		if (get_time() - sleep_start >= sleep_duration)
+			break ;
+		usleep(10);
+	}
 }

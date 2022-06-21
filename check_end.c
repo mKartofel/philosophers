@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 10:06:54 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/21 10:28:10 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/21 11:04:30 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	check_death(t_params *params, t_philo *philos, int i)
 	pthread_mutex_lock(philos[i].check_death);
 	if (get_time() - philos[i].time_last_meal > params->time_to_die)
 	{
-		display_state(&philos[i], "died");
 		params->end = 1;
+		display_state(&philos[i], "died", 1);
 	}
 	pthread_mutex_unlock(philos[i].check_death);
 }
@@ -57,6 +57,6 @@ void	check_end(t_params *params, t_philo *philos)
 		check_must_eat(params, must_eat_satisfied);
 		if (params->end == 1)
 			break ;
-		usleep(50);
+		usleep(100);
 	}
 }
