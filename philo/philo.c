@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 09:58:18 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/22 12:27:17 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/22 13:37:13 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	start_threads(t_params *params, t_philo *philos)
 		i += 2;
 	}
 	i = 1;
-	usleep(30000);
+	usleep(15000);
 	while (i < params->nb_philo)
 	{
 		philos[i].time_last_meal = get_time();

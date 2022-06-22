@@ -6,7 +6,7 @@
 #    By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/19 17:31:34 by vfiszbin          #+#    #+#              #
-#    Updated: 2022/06/22 12:46:56 by vfiszbin         ###   ########.fr        #
+#    Updated: 2022/06/22 13:53:59 by vfiszbin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ CC = cc
 
 RM = rm -f
 
-FLAGS = -Wall -Wextra -Werror #-g -fsanitize=thread
+FLAGS = -Wall -Wextra -Werror
 
 LIBS = -pthread
 
