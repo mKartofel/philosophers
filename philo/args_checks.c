@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 16:16:23 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/22 16:38:13 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/22 16:52:24 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ long	ft_atol(const char *nptr)
 /*Check if the argument is a valid C integer that does not overflow/underflow*/
 int	arg_is_int(char *arg)
 {
-	long num;
+	long	num;
 
 	if (ft_strlen(arg) > 10)
 		return (0);

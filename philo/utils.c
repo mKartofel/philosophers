@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 17:35:29 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/22 16:35:18 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/22 17:00:26 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,14 @@ void	micro_sleeps(t_philo *philo, long sleep_duration)
 			pthread_mutex_unlock(&philo->params->end_check);
 			break ;
 		}	
-		pthread_mutex_unlock(&philo->params->end_check);	
+		pthread_mutex_unlock(&philo->params->end_check);
 		if (get_time() - sleep_start >= sleep_duration)
 			break ;
 		usleep(100);
 	}
 }
 
-int error_msg(char *msg, int ret)
+int	error_msg(char *msg, int ret)
 {
 	printf("%s\n", msg);
 	return (ret);
