@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 16:31:20 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/21 11:31:51 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/22 11:20:22 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct s_params
 	int				time_to_sleep;
 	int				nb_must_eat;
 	pthread_mutex_t	display;
+	pthread_mutex_t	end_check;
+	pthread_mutex_t	check_meals;
 }	t_params;
 
 typedef struct s_philo
@@ -36,7 +38,6 @@ typedef struct s_philo
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*check_death;
-	pthread_mutex_t	*display;
 	pthread_t		thread;
 	t_params		*params;
 	long			start_time;

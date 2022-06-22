@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:04:05 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/21 10:32:14 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/22 11:37:03 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	init_philo(t_params *params, t_philo **philos, long start_time, int i)
 {
 	(*philos)[i].num = i + 1;
 	(*philos)[i].params = params;
-	(*philos)[i].display = &(params->display);
 	(*philos)[i].start_time = start_time;
 	(*philos)[i].nb_meals = 0;
 	(*philos)[i].right_fork = malloc(sizeof(pthread_mutex_t));
@@ -77,6 +76,19 @@ int	init_vars(t_params *params, t_philo **philos)
 		return (1);
 	if (pthread_mutex_init(&(params->display), NULL) != 0)
 	{
+		free(*philos);
+		return (1);
+	}
+	if (pthread_mutex_init(&(params->end_check), NULL) != 0)
+	{
+		pthread_mutex_destroy(&(params->display));
+		free(*philos);
+		return (1);
+	}
+	if (pthread_mutex_init(&(params->check_meals), NULL) != 0)
+	{
+		pthread_mutex_destroy(&(params->display));
+		pthread_mutex_destroy(&(params->end_check));
 		free(*philos);
 		return (1);
 	}

@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 17:35:29 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/21 15:59:19 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/22 11:21:26 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,15 @@ void	micro_sleeps(t_philo *philo, long sleep_duration)
 	long	sleep_start;
 
 	sleep_start = get_time();
-	while (philo->params->end == 0)
+	while (1)
 	{
+		pthread_mutex_lock(&philo->params->end_check);
+		if (philo->params->end != 0)
+		{
+			pthread_mutex_unlock(&philo->params->end_check);
+			break ;
+		}	
+		pthread_mutex_unlock(&philo->params->end_check);	
 		if (get_time() - sleep_start >= sleep_duration)
 			break ;
 		usleep(100);
