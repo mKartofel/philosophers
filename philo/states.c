@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 14:56:10 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/22 11:52:39 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/22 12:36:06 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,50 @@
 
 void	eat_philo(t_philo *philo)
 {
-	pthread_mutex_lock(philo->right_fork);
-	display_state(philo, "has taken a fork", 0);
-	if (philo->left_fork != NULL)
+	if (philo->num % 2 == 1)
+	{
+		pthread_mutex_lock(philo->right_fork);
+		display_state(philo, "has taken a fork", 0);
+		if (philo->left_fork != NULL)
+		{
+			pthread_mutex_lock(philo->left_fork);
+			display_state(philo, "has taken a fork", 0);
+			pthread_mutex_lock(philo->check_death);
+			display_state(philo, "is eating", 0);
+			philo->time_last_meal = get_time();
+			pthread_mutex_unlock(philo->check_death);
+			pthread_mutex_lock(&philo->params->check_meals);
+			philo->nb_meals++;
+			pthread_mutex_unlock(&philo->params->check_meals);
+			micro_sleeps(philo, philo->params->time_to_eat);
+			pthread_mutex_unlock(philo->right_fork);
+			pthread_mutex_unlock(philo->left_fork);
+		}
+		else
+			pthread_mutex_unlock(philo->right_fork);
+	}
+	else
 	{
 		pthread_mutex_lock(philo->left_fork);
 		display_state(philo, "has taken a fork", 0);
-		pthread_mutex_lock(philo->check_death);
-		display_state(philo, "is eating", 0);
-		philo->time_last_meal = get_time();
-		pthread_mutex_unlock(philo->check_death);
-		pthread_mutex_lock(&philo->params->check_meals);
-		philo->nb_meals++;
-		pthread_mutex_unlock(&philo->params->check_meals);
-		micro_sleeps(philo, philo->params->time_to_eat);
-		pthread_mutex_unlock(philo->right_fork);
-		pthread_mutex_unlock(philo->left_fork);
+		if (philo->left_fork != NULL)
+		{
+			pthread_mutex_lock(philo->right_fork);
+			display_state(philo, "has taken a fork", 0);
+			pthread_mutex_lock(philo->check_death);
+			display_state(philo, "is eating", 0);
+			philo->time_last_meal = get_time();
+			pthread_mutex_unlock(philo->check_death);
+			pthread_mutex_lock(&philo->params->check_meals);
+			philo->nb_meals++;
+			pthread_mutex_unlock(&philo->params->check_meals);
+			micro_sleeps(philo, philo->params->time_to_eat);
+			pthread_mutex_unlock(philo->left_fork);
+			pthread_mutex_unlock(philo->right_fork);
+		}
+		else
+			pthread_mutex_unlock(philo->left_fork);
 	}
-	else
-		pthread_mutex_unlock(philo->right_fork);
 }
 
 void	sleep_philo(t_philo *philo)
@@ -69,8 +94,8 @@ void	*routine(void *philo_arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)philo_arg;
-	if ((philo->num % 2) == 0)
-		usleep(30000);
+	// if ((philo->num % 2) == 0)
+	// 	usleep(30000);
 	while (1)
 	{
 		pthread_mutex_lock(&philo->params->end_check);
