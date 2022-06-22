@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 16:31:20 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/22 11:20:22 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/22 16:35:27 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,8 @@ t_philo	*create_philos(t_params *params);
 void	*routine(void *philo_arg);
 void	check_end(t_params *params, t_philo *philos);
 void	micro_sleeps(t_philo *philo, long sleep_duration);
+int		arg_is_digit(char *arg);
+int		arg_is_int(char *arg);
+int		error_msg(char *msg, int ret);
 
 #endif

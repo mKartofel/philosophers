@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 09:58:18 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/22 13:37:13 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/22 16:36:45 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 int	get_params(int argc, char **argv, t_params *params)
 {
+	if (!arg_is_digit(argv[1]) || !arg_is_digit(argv[2])
+		|| !arg_is_digit(argv[3]) || !arg_is_digit(argv[4])
+		|| !arg_is_int(argv[1]) || !arg_is_int(argv[2])
+		||!arg_is_int(argv[3]) || !arg_is_int(argv[4]))
+		return error_msg("Incorrect arguments", 1);
 	params->end = 0;
 	params->nb_philo = ft_atoi(argv[1]);
 	params->time_to_die = ft_atoi(argv[2]);
@@ -21,18 +26,14 @@ int	get_params(int argc, char **argv, t_params *params)
 	params->time_to_sleep = ft_atoi(argv[4]);
 	if (params->nb_philo < 1 || params->time_to_die < 0
 		|| params->time_to_eat < 0 || params->time_to_sleep < 0)
-	{
-		printf("Incorrect arguments\n");
-		return (1);
-	}
+		return error_msg("Incorrect arguments", 1);
 	if (argc == 6)
 	{
+		if (!arg_is_digit(argv[5]) || !arg_is_int(argv[5]))
+			return error_msg("Incorrect arguments", 1);
 		params->nb_must_eat = ft_atoi(argv[5]);
 		if (params->nb_must_eat < 0)
-		{
-			printf("Incorrect arguments\n");
-			return (1);
-		}
+			return error_msg("Incorrect arguments", 1);
 	}
 	else
 		params->nb_must_eat = -1;

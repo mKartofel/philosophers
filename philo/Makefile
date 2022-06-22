@@ -6,7 +6,7 @@
 #    By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/19 17:31:34 by vfiszbin          #+#    #+#              #
-#    Updated: 2022/06/22 13:53:59 by vfiszbin         ###   ########.fr        #
+#    Updated: 2022/06/22 16:37:20 by vfiszbin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS =	philo.c\
 		init_philos.c\
 		check_end.c\
 		utils.c\
+		args_checks.c\
 
 OBJS = ${SRCS:.c=.o}
 
