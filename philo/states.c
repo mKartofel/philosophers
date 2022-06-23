@@ -6,7 +6,7 @@
 /*   By: vfiszbin <vfiszbin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 14:56:10 by vfiszbin          #+#    #+#             */
-/*   Updated: 2022/06/22 16:58:39 by vfiszbin         ###   ########.fr       */
+/*   Updated: 2022/06/23 10:03:45 by vfiszbin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	eat_philo(t_philo *philo)
 			pthread_mutex_unlock(philo->right_fork);
 	}
 	else
-		odd_eat_philo(philo);
+		even_eat_philo(philo);
 }
 
 void	sleep_philo(t_philo *philo)
